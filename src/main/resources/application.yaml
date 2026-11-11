@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: springboot-springmvc
+  threads:
+    virtual:
+      enabled: true
+  task:
+    execution:
+      thread-name-prefix: async-
+      propagate-context: true
+      simple:
+        concurrency-limit: 100
+      shutdown:
+        await-termination: true
+        await-termination-period: 30s
+
+server:
+  port: 8080
+  servlet:
+    context-path: /springboot-springmvc
+  tomcat:
+    keep-alive-timeout: 65s
+
+logging:
+  level:
+    root: INFO
+    com.zxcv.springbootspringmvc: INFO
+    com.zxcv.springbootspringmvc.common.logging.RequestLoggingFilter: DEBUG
+    com.zxcv.springbootspringmvc.common.httpclient.HttpLoggingInterceptor: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  otlp:
+    metrics:
+      export:
+        enabled: false
+
+app:
+  rest-client:
+    pool:
+      max-total-connections: 100
+      max-connections-per-route: 20
+      idle-timeout: 30s
+      time-to-live: 5m
+    connect-timeout: 2s
+    connection-request-timeout: 1s
+    response-timeout: 4s
+  clients:
+    mock-service:
+      base-url: http://localhost:9999/mock-service

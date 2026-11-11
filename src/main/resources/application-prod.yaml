@@ -1,0 +1,11 @@
+# Activate with argument "--spring.profiles.active=prod"
+logging:
+  structured:
+    format:
+      # One JSON object per line: stack traces stay inside a single CloudWatch log event
+      console: ecs
+  level:
+    root: INFO
+    com.zxcv.springbootspringmvc: INFO
+    com.zxcv.springbootspringmvc.common.logging.RequestLoggingFilter: INFO
+    com.zxcv.springbootspringmvc.common.httpclient.HttpLoggingInterceptor: INFO
